@@ -1,0 +1,25 @@
+{
+    "type":"shipall",
+    "src":"2.5.2.jpg",
+    "width":2246,
+    "height":1389,
+    "radius":25,
+    "items":[
+{"index":1,"x":137,"y":1194,"txt":"舵<br/>rudder"},
+{"index":2,"x":384,"y":1194,"txt":"螺旋桨<br/>screw propeller"},
+{"index":3,"x":70,"y":838,"txt":"尾旗杆<br/>ensign staff"},
+{"index":4,"x":74,"y":742,"txt":"救生艇<br/>lifeboat"},
+{"index":5,"x":72,"y":653,"txt":"吊杆<br/>boom,derrick"},
+{"index":6,"x":182,"y":479,"txt":"尾吊杆柱<br/>stern derrick post"},
+{"index":7,"x":316,"y":385,"txt":"烟囱<br/>funnel"},
+{"index":8,"x":432,"y":294,"txt":"无线电天线<br/>wireless antenna"},
+{"index":9,"x":678,"y":342,"txt":"雷达桅<br/>radar mast"},
+{"index":10,"x":678,"y":475,"txt":"驾驶台<br/>bridge"},
+{"index":11,"x":917,"y":471,"txt":"舷边栏杆<br/>side railing"},
+{"index":12,"x":1046,"y":428,"txt":"液罐<br/>liquefied gas tank"},
+{"index":13,"x":1190,"y":430,"txt":"步桥<br/>long walk bridge"},
+{"index":14,"x":1729,"y":112,"txt":"前桅<br/>foremast"},
+{"index":15,"x":2018,"y":118,"txt":"艏楼甲板<br/>forecastle deck"},
+{"index":16,"x":2156,"y":112,"txt":"船艏旗杆<br/>jack staff"},
+{"index":17,"x":2096,"y":467,"txt":"主锚<br/>bower anchor"}
+]}

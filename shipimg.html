@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+        <meta name ="viewport" content ="initial-scale=1">
+    <title>船舶图册</title>
+    <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+    <style type="text/css">
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+
+         #selbox{
+            font-size:20px;
+            z-index: 10;
+            display: block;
+            position: absolute;
+        }
+
+        #dialog{
+            widows: 200px;
+            z-index: 10;
+            display: block;
+            position: absolute;
+            background-color:#dcdcdc;
+        }
+
+        #dialog div{
+            width: 100%;
+            padding: 0px;
+            margin: 0px;
+            border-style: solid; 
+            border-width: 1px;
+        }
+    </style>
+</head>
+<body>
+    <div id='selbox'>
+    <a href="index.html">返回首页</a>
+        <select id="imgselect">
+        </select>
+    </div>
+    
+    <img id='ship01'></img>
+
+    <div id="dialog" title="Info" style="font-size:20px">
+        <div style="background-color:#a9a9a9">
+        <span id='selidx' style="font-size:17px"></span>&nbsp;&nbsp;<span onclick="$('#dialog').hide()" style=" float:right;color:#ff0000">X</span>
+        </div>
+        <div>
+        <p id='modelInfo'>infoxxxx</p>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $.getJSON("json/index_shipall.json",function(obj){
+            var len = obj.items.length;
+            
+            for(var i=0;i<len;i++){
+                if(i == 0){
+                    var sitem = '<option value="'+obj.items[i].db+'" selected="selected">'+obj.items[i].txt+'</option>';
+                    $('#imgselect').append(sitem);
+                }else{
+                    var sitem = '<option value="'+obj.items[i].db+'">'+obj.items[i].txt+'</option>';
+                    $('#imgselect').append(sitem);
+                }
+            }
+            //初始化数据
+            loaddb();
+        });
+
+        var screenflag = 0;
+        var db_ship01={};
+
+        var imgselect = document.getElementById('imgselect');
+        imgselect.onchange = function () {
+            if (!imgselect.value) return;
+            loaddb();
+        }
+
+        function loaddb(){
+            $.getJSON("json/"+imgselect.value,function(obj){
+                    db_ship01 = obj;
+                    $('#ship01').attr('src','img/'+db_ship01.type+"/"+db_ship01.src);
+                });
+        }
+        
+
+        window.onload = function(){
+                var wid = $(window).width();
+                var hei = $(window).height();
+                
+                if(wid > hei)
+                {
+                    if(wid >= 1400){
+                        $('#ship01').width("70%");
+                    }else{
+                        $('#ship01').width("100%");
+                    }
+                    
+                }else{
+                    $('body').css('-webkit-transform-origin','0 0'); 
+                    $('body').css('-webkit-transform','rotate(90deg) translateY(-'+wid+'px)'); 
+                    $('body').width(hei);
+                    $('body').height(wid);
+                    $('#ship01').height("100%");
+                    screenflag = 1;
+                }
+
+                $("#dialog").hide();
+
+                $('#ship01').click(function(e){
+                   var imgwid = $('#ship01').width();
+                   var imghei = $('#ship01').height();
+                   var imgpoxX = e.offsetX/imgwid*db_ship01.width;
+                   var imgpoxY = e.offsetY/imghei*db_ship01.height;
+                   var modx = 0;
+                   var mody = 0;
+                   var idx = SelectPoint(imgpoxX, imgpoxY,db_ship01.radius);
+                   if(idx != -1){
+                        var selitem = db_ship01.items[idx];
+                        $('#selidx').text('序号:'+selitem.index);
+                        $('#modelInfo').html(selitem.txt);
+                        $("#dialog").show();
+                        if(screenflag == 1){
+                            if((hei - e.clientY) < 100) {
+                                mody = -100;
+                            }
+                            if(e.clientX < 100){
+                                modx = 80;
+                            }
+
+                            $("#dialog").css({ "bottom": e.pageX-80+modx,"left": e.pageY+mody }); 
+                            
+                        }else{
+                            if((wid - e.clientX) < 100) {
+                                modx = -100;
+                            }
+
+                            if((hei - e.clientY) < 100){
+                                mody = -100;
+                            }
+                            
+                            $("#dialog").css({ "top": e.pageY+10+mody,"left": e.pageX+10+modx }); 
+                        }
+                        
+                   }else{
+                        $( "#dialog" ).hide();
+                   }
+                });
+        }
+
+        function SelectPoint(px,py,rad){
+            for(var i=0;i<db_ship01.items.length;i++){
+                var selitem = db_ship01.items[i]; 
+                var px2 = selitem.x;
+                var py2 = selitem.y;
+                var dist = Math.sqrt((px-px2)*(px-px2) + (py-py2)*(py-py2));
+                if(selitem.radius){
+                    if(dist <= selitem.radius){
+                        return i;
+                    }
+                }else{
+                    if(dist <= rad){
+                        return i;
+                    }
+                }
+                
+            }
+
+            return -1;
+        }
+     
+    </script>
+</body>
+</html>

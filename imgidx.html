@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>图纸位置索引</title>
+    <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+    <style type="text/css">
+
+        #dialog{
+            widows: 200px;
+            z-index: 10;
+            display: block;
+            position: absolute;
+            background-color:#dcdcdc;
+        }
+
+        #dialog div{
+            width: 100%;
+            padding: 0px;
+            margin: 0px;
+            border-style: solid; 
+            border-width: 1px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    width:<input id='srcwidth' type='text' value="0"></input>
+    height:<input id='srcheight' type='text' value="0"></input>
+</div>
+<div>
+    <img id='ship01' width="70%"></img>
+</div>
+<div id='dialog' style="display:none">
+    index:<input id='index' type='text' value=""></input><br/>
+    radiu:<input id='radius' type='text' value=""></input><br/>
+    <input id='bcancel' type="button" value='取消' onclick="$('#dialog').hide();" style=" float:right"></input>
+    <input id='bok' type="button" value='确定' onclick="showItem();" style=" float:right"></input>
+</div>
+<div id='msg'>
+</div>
+     <script type="text/javascript">
+        var imgpoxX=0;
+        var imgpoxY=0;
+        var template = getQueryStringByName("db");
+
+        $.getJSON("json/"+template+".json",function(obj){
+            $('#ship01').attr('src','img/'+obj.type+"/"+obj.src);
+            $('#srcwidth').val(obj.width);
+            $('#srcheight').val(obj.height);
+        });
+
+        $('#ship01').click(function(e){
+                   var imgwid = $('#ship01').width();
+                   var imghei = $('#ship01').height();
+                   var srcwid = parseFloat($('#srcwidth').val());
+                   var srchei = parseFloat($('#srcheight').val());
+                    imgpoxX = e.offsetX/imgwid*srcwid;
+                    imgpoxY = e.offsetY/imghei*srchei;
+                   
+                   $("#dialog").css({ "top": e.pageY+10,"left": e.pageX+10 }); 
+                   $('#dialog').show();
+                  
+                });
+
+        function showItem(){
+            $('#dialog').hide()
+            var idx = $('#index').val();
+            var rad = $('#radius').val();
+            if(idx != ""){
+                if(rad != ""){
+                    var res = '{"index":'+idx+ ',"x":'+imgpoxX.toFixed(0)+',"y":'+imgpoxY.toFixed(0)+',"radius":'+rad+',"txt":"@content"},<br/>';
+                    $('#msg').append(res);
+                }else{
+                    var res = '{"index":'+idx+ ',"x":'+imgpoxX.toFixed(0)+',"y":'+imgpoxY.toFixed(0)+',"txt":"@content"},<br/>';
+                    $('#msg').append(res);
+                }
+                
+                $('#index').val(parseInt(idx)+1);
+            }
+        }
+
+        function getQueryStringByName(name){
+             var result = location.search.match(new RegExp("[\?\&]" + name+ "=([^\&]+)","i"));
+            
+             if(result == null || result.length < 1){
+                 return "";
+             }
+
+             return result[1];
+        }
+
+
+     </script>
+</body>
+</html>

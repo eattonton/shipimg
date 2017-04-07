@@ -1,0 +1,26 @@
+{
+    "type":"shipall",
+    "src":"2.4.4.jpg",
+    "width":1560,
+    "height":1074,
+    "radius":30,
+    "items":[
+{"index":1,"x":92,"y":36,"txt":"艏灯吊杆<br/>head light davit"},
+{"index":2,"x":363,"y":31,"txt":"起锚机<br/>windlass"},
+{"index":3,"x":469,"y":33,"txt":"船艏舱口<br/>fore hatch"},
+{"index":4,"x":556,"y":31,"txt":"吊货杆<br/>derrick,boom"},
+{"index":5,"x":644,"y":33,"txt":"前桅<br/>fore mast"},
+{"index":6,"x":48,"y":165,"txt":"艏楼平台<br/>forecastle platform"},
+{"index":7,"x":1017,"y":205,"txt":"步桥<br/>flying passage"},
+{"index":8,"x":1083,"y":250,"txt":"蒸汽管系<br/>vapor pipe line"},
+{"index":9,"x":1212,"y":247,"txt":"头巾形通风筒<br/>cowl head ventilator"},
+{"index":10,"x":1288,"y":290,"txt":"前货舱泵房<br/>forward cargo oil pump room"},
+{"index":11,"x":1374,"y":294,"txt":"泵房天窗<br/>pump room skylight"},
+{"index":12,"x":72,"y":476,"txt":"系缆桩<br/>bollard"},
+{"index":13,"x":164,"y":611,"txt":"艏楼平台梯子<br/>forecastle<br/>platform ladder"},
+{"index":14,"x":296,"y":741,"txt":"备用主锚<br/>spare bower anchor"},
+{"index":15,"x":417,"y":831,"txt":"货油舱气阀<br/>cargo oil tank gas valve"},
+{"index":16,"x":571,"y":871,"txt":"盖板<br/>cover plate"},
+{"index":17,"x":784,"y":963,"txt":"气管阀<br/>gas line valve"},
+{"index":18,"x":1509,"y":741,"txt":"水密门<br/>watertight door"}
+]}
